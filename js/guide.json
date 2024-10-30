@@ -1,0 +1,75 @@
+[
+  {
+    "ID": 1,
+    "Lang": "es-MX",
+    "TaskNumber": 1,
+    "StepNumber": 1,
+    "Title": "Cosa 1",
+    "Task": "Soy una linda tarea :)",
+    "Step": "Soy un paso de la tarea",
+    "Text": "ESTE ES EL TEXTO 1.",
+    "Attachment": null,
+    "Position": null
+  },
+  {
+    "ID": 2,
+    "Lang": "es-MX",
+    "TaskNumber": 1,
+    "StepNumber": 2,
+    "Title": "Cosa 2",
+    "Task": "Soy otra linda tarea",
+    "Step": "Soy otro paso de la tarea",
+    "Text": "Soy el segundo texto. Este es el texto 1. El rápido zorro marrón salta sobre el perro perezoso en una tarde soleada de verano. A lo largo del río, los árboles susurran suavemente mientras las hojas caen al suelo, creando un tapiz natural bajo los pies. Los pájaros cantan melodías que llenan el aire con armonía, mientras el viento acaricia los rostros de aquellos que pasean por el sendero. En la distancia, las montañas se alzan majestuosas, ofreciendo un espectáculo impresionante que captura la esencia de la naturaleza en todo su esplendor. Todo en este escenario refleja la paz y la tranquilidad de un día perfecto, donde el tiempo parece detenerse y la belleza del mundo se despliega en cada rincón.",
+    "Attachment": "assets/newyork.png",
+    "Position": null
+  },
+  {
+    "ID": 3,
+    "Lang": "es-MX",
+    "TaskNumber": 1,
+    "StepNumber": 3,
+    "Title": "Cosa 3",
+    "Task": "¿Cuantas tareas tengo?",
+    "Step": "guides.js",
+    "Text": "Tercer texto largo! El rápido zorro marrón salta sobre el perro perezoso en una tarde soleada de verano. A lo largo del río, los árboles susurran suavemente mientras las hojas caen al suelo, creando un tapiz natural bajo los pies. Los pájaros cantan melodías que llenan el aire con armonía, mientras el viento acaricia los rostros de aquellos que pasean por el sendero. En la distancia, las montañas se alzan majestuosas, ofreciendo un espectáculo impresionante que captura la esencia de la naturaleza en todo su esplendor. Todo en este escenario refleja la paz y la tranquilidad de un día perfecto, donde el tiempo parece detenerse y la belleza del mundo se despliega en cada rincón.",
+    "Attachment": "assets/teams.mp4",
+    "Position": null
+    
+  },
+  {
+    "ID": 4,
+    "Lang": "en-US",
+    "TaskNumber": 1,
+    "StepNumber": 4,
+    "Title": "Cosa 4",
+    "Task": "En inglés",
+    "Step": "No manches que es esto",
+    "Text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+    "Attachment": "assets/losangeles.jpg",
+    "Position": null
+  },
+  {
+    "ID": 5,
+    "Lang": "es-MX",
+    "TaskNumber": 2,
+    "StepNumber": 1,
+    "Title": "Cosa 5",
+    "Task": "cómo crées que hága lós ácéntós",
+    "Step": "Que está pasando",
+    "Text": "Morbi vestibulum ligula consequat elit congue, eu mattis purus convallis. Vivamus pellentesque laoreet magna quis fringilla. Integer in venenatis felis, vel tempus lorem. Proin vitae odio id risus eleifend ornare quis sagittis erat. Integer luctus at dolor vel sodales. Sed vulputate ac justo id aliquam. Nullam finibus tellus augue, ut accumsan est convallis nec.",
+    "Attachment": null,
+    "Position": null
+  },
+  {
+    "ID": 6,
+    "Lang": "es-MX",
+    "TaskNumber": 2,
+    "StepNumber": 2,
+    "Title": "Cosa 6",
+    "Task": "Ya no se que  haré",
+    "Step": "Cosas de los pasos que más",
+    "Text": "Cras facilisis non ipsum vel vestibulum. Sed eleifend nunc id lacus aliquet mollis. Phasellus viverra, libero et interdum sollicitudin, nunc ipsum efficitur nisi, malesuada tincidunt est urna vel tortor. Donec accumsan leo mattis dolor tempor commodo. Proin gravida malesuada mattis. Cras eget ligula ac nibh convallis tempor sed quis nibh. Vivamus tempor, est quis imperdiet blandit, orci quam suscipit augue, volutpat ultricies risus quam et mauris. Pellentesque suscipit arcu vitae dignissim mollis. Ut nulla lacus, malesuada et volutpat et, fermentum condimentum augue. Vestibulum metus ante, convallis quis sodales nec, maximus ac eros. Nunc in congue tortor. Aliquam fringilla aliquam nibh id eleifend. Mauris nec dignissim erat. Cras sollicitudin mauris vel lorem convallis, a hendrerit magna posuere.",
+    "Attachment": null,
+    "Position": null
+  }
+]

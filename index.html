@@ -1,0 +1,76 @@
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script> 
+</head>
+
+<body>
+  <a-scene xr-mode-ui="XRMode: xr" raycaster="objects: .button" cursor="rayOrigin:mouse" renderer="sortObjects: true;
+     physicallyCorrectLights: false;">
+
+    <a-assets>
+
+      <img id="back_on" src="media/img/ui/back_on.png" alt="">
+      <img id="back" src="media/img/ui/back.png" alt="">
+      <img id="down_on" src="media/img/ui/down_on.png" alt="">
+      <img id="down" src="media/img/ui/down.png" alt="">
+      <img id="follow_on" src="media/img/ui/follow_on.png" alt="">
+      <img id="follow" src="media/img/ui/follow.png" alt="">
+      <img id="fwd_on" src="media/img/ui/fwd_on.png" alt="">
+      <img id="fwd" src="media/img/ui/fwd.png" alt="">
+      <img id="min_on" src="media/img/ui/min_on.png" alt="">
+      <img id="min" src="media/img/ui/min.png" alt="">
+      <img id="play_on" src="media/img/ui/play_on.png" alt="">
+      <img id="play" src="media/img/ui/play.png" alt="">
+      <img id="pause_on" src="media/img/ui/pause_on.png" alt="">
+      <img id="pause" src="media/img/ui/pause.png" alt="">
+      <img id="rotate_on" src="media/img/ui/rotate_on.png" alt="">
+      <img id="rotate" src="media/img/ui/rotate.png" alt="">
+      <img id="screen" src="media/img/ui/screen.png" alt="">
+      <img id="screen_s" src="media/img/ui/screen_s.png" alt="">
+      <img id="step_active" src="media/img/ui/step_on.png" alt="">
+      <img id="step_on" src="media/img/ui/step_on.png" alt="">
+      <img id="step" src="media/img/ui/step.png" alt="">
+      <img id="steps_active" src="media/img/ui/steps_on.png" alt="">
+      <img id="steps_on" src="media/img/ui/steps_on.png" alt="">
+      <img id="steps" src="media/img/ui/steps.png" alt="">
+      <img id="up_on" src="media/img/ui/up_on.png" alt="">
+      <img id="up" src="media/img/ui/up.png" alt="">
+      <img id="cascade_bg" src="media/img/ui/cascade_bg.png" alt="">
+      <img id="page_bg" src="media/img/ui/page_bg.png" alt="">
+      <img id="volume_mute" src="media/img/ui/mute.png" alt="">
+      <img id="volume_voice" src="media/img/ui/volume.png" alt="">
+
+      <a-asset-item id="bg" src="media/models/bg.glb"></a-asset-item>
+    </a-assets>
+
+
+    <!--
+    //**********//
+    //FULL GUIDE//
+    //**********//
+    -->
+
+    <a-entity position="0 1.4 -3" guide>
+
+
+
+    </a-entity>
+
+    <!--
+    //**********//
+    //End FULL GUIDE//
+    //**********//
+    -->
+
+    <!-- <a-box position="0 1.4 -5" color="red"></a-box> -->
+
+
+  </a-scene>
+  <script src="js/textToSpeech.js"></script>
+  <script src="js/listeners.js"></script>
+  <script src="js/guides.js"></script>
+</body>
+
+</html>
