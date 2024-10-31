@@ -56,10 +56,10 @@
     </a-entity>
 
       <!-- Cámara con look-controls y wasd-controls -->
-    <a-camera wasd-controls look-controls>
+    <a-camera id="camara-cursor" wasd-controls look-controls>
       <!-- Crosshair centrado -->
       <a-entity 
-        cursor="fuse: true; fuseTimeout: 500; rayOrigin: entity" 
+        cursor="fuse: false; rayOrigin: entity" 
         position="0 0 -1" 
         geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
         material="color: black; shader: flat">
