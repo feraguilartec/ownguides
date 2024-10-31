@@ -143,25 +143,25 @@ AFRAME.registerComponent('guide', {
     multimedia_video.setAttribute("loop", "false");
     multimedia_video.setAttribute("material", "opacity: .95;");
     multimedia_video.setAttribute("position", "-2.5 0 -.01");
-    multimedia_video.setAttribute("look-at", "[camera]");
+    multimedia_video.setAttribute("look-at", "#camara-cursor");
 
     var multimedia_image = document.createElement("a-image");
     multimedia_image.setAttribute("id", "multimedia_image");
     multimedia_image.setAttribute("position", "-2.5 0 -.01");
-    multimedia_image.setAttribute("look-at", "[camera]");
+    multimedia_image.setAttribute("look-at", "#camara-cursor");
 
     var plano = document.createElement("a-plane");
     plano.setAttribute("id", "plano");
     plano.setAttribute("color", "#111");
     plano.setAttribute("height", ".2");
     plano.setAttribute("position", "-2.5 -.5 -.01");
-    plano.setAttribute("look-at", "[camera]");
+    plano.setAttribute("look-at", "#camara-cursor");
 
     var bg_multimedia = document.createElement("a-entity");
     bg_multimedia.setAttribute("id", "bg_multimedia");
     bg_multimedia.setAttribute("gltf-model", "#bg");
     bg_multimedia.setAttribute("position", "-2.5 0 -.05");
-    bg_multimedia.setAttribute("look-at", "[camera]");
+    bg_multimedia.setAttribute("look-at", "#camara-cursor");
     
     var toggle_pause = document.createElement("a-entity");
     toggle_pause.setAttribute("class", "button");
@@ -169,7 +169,7 @@ AFRAME.registerComponent('guide', {
     toggle_pause.setAttribute("position", "-2.5 0 .2");
     toggle_pause.setAttribute("geometry", "primitive:plane; width:.5; height:.5");
     toggle_pause.setAttribute("material", "src:#play_on; opacity:.99;");
-    toggle_pause.setAttribute("look-at", "[camera]");
+    toggle_pause.setAttribute("look-at", "#camara-cursor");
 
     // Animación al hacer hover
     toggle_pause.setAttribute("animation__mouseenter", {
