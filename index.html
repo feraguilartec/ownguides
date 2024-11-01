@@ -3,6 +3,8 @@
 <head>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+
 </head>
 
 <body>
@@ -64,7 +66,10 @@
         geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
         material="color: black; shader: flat">
       </a-entity>
+      <a-entity super-hands></a-entity>
     </a-camera>
+
+    <a-box grabbable class="button"></a-box>
 
     <!--
     //**********//
