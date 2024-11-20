@@ -1,32 +1,97 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hand Tracking en Apple Vision Pro</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/wmurphyrd/aframe-super-hands-component@3.2.0/dist/aframe-super-hands.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-light type="ambient" color="#888"></a-light>
-      <a-light type="directional" intensity="0.5" position="1 3 1"></a-light>
 
-      <a-camera position="0 1.6 0">
-        <a-entity
-          oculus-touch-controls="hand: left"
-          hand-tracking-controls="hand: left"></a-entity>
-        <a-entity
-          oculus-touch-controls="hand: right"
-          hand-tracking-controls="hand: right"></a-entity>
-      </a-camera>
+<head>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aframe-xr-hand-tracking@1.2.0/dist/aframe-xr-hand-tracking.min.js"></script>
 
-      <a-sky color="#ECECEC"></a-sky>
+</head>
 
-      <a-box position="0 1 -3" color="#4CC3D9" depth="0.2" class="interactive" 
-        hover-effect 
-        grabbable 
-        stretchable 
-        draggable></a-box>
-    </a-scene>
-  </body>
+<body>
+  <a-scene xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true;
+     physicallyCorrectLights: false;">
+
+    <a-assets>
+
+      <img id="back_on" src="media/img/ui/back_on.png" alt="">
+      <img id="back" src="media/img/ui/back.png" alt="">
+      <img id="down_on" src="media/img/ui/down_on.png" alt="">
+      <img id="down" src="media/img/ui/down.png" alt="">
+      <img id="follow_on" src="media/img/ui/follow_on.png" alt="">
+      <img id="follow" src="media/img/ui/follow.png" alt="">
+      <img id="fwd_on" src="media/img/ui/fwd_on.png" alt="">
+      <img id="fwd" src="media/img/ui/fwd.png" alt="">
+      <img id="min_on" src="media/img/ui/min_on.png" alt="">
+      <img id="min" src="media/img/ui/min.png" alt="">
+      <img id="play_on" src="media/img/ui/play_on.png" alt="">
+      <img id="play" src="media/img/ui/play.png" alt="">
+      <img id="pause_on" src="media/img/ui/pause_on.png" alt="">
+      <img id="pause" src="media/img/ui/pause.png" alt="">
+      <img id="rotate_on" src="media/img/ui/rotate_on.png" alt="">
+      <img id="rotate" src="media/img/ui/rotate.png" alt="">
+      <img id="screen" src="media/img/ui/screen.png" alt="">
+      <img id="screen_s" src="media/img/ui/screen_s.png" alt="">
+      <img id="step_active" src="media/img/ui/step_on.png" alt="">
+      <img id="step_on" src="media/img/ui/step_on.png" alt="">
+      <img id="step" src="media/img/ui/step.png" alt="">
+      <img id="steps_active" src="media/img/ui/steps_on.png" alt="">
+      <img id="steps_on" src="media/img/ui/steps_on.png" alt="">
+      <img id="steps" src="media/img/ui/steps.png" alt="">
+      <img id="up_on" src="media/img/ui/up_on.png" alt="">
+      <img id="up" src="media/img/ui/up.png" alt="">
+      <img id="cascade_bg" src="media/img/ui/cascade_bg.png" alt="">
+      <img id="page_bg" src="media/img/ui/page_bg.png" alt="">
+      <img id="volume_mute" src="media/img/ui/mute.png" alt="">
+      <img id="volume_voice" src="media/img/ui/volume.png" alt="">
+
+      <a-asset-item id="bg" src="media/models/bg.glb"></a-asset-item>
+    </a-assets>
+
+
+    <!--
+    //**********//
+    //FULL GUIDE//
+    //**********//
+    -->
+
+    <a-entity position="0 1.4 -3" guide>
+    </a-entity>
+
+    <!-- Controladores para manos -->
+    <a-entity id="leftHand" hand-tracking-controls="hand: left;" hand-tracking-controls obb-collider></a-entity>
+    <a-entity id="rightHand" hand-tracking-controls="hand: right;" hand-tracking-controls obb-collider></a-entity>
+
+      <!-- Cámara con look-controls y wasd-controls -->
+    <a-camera id="camara-cursor" wasd-controls look-controls>
+      <!-- Crosshair centrado -->
+      <a-entity 
+        cursor="fuse: false; rayOrigin: entity" 
+        position="0 0 -1" 
+        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
+        material="color: black; shader: flat">
+      </a-entity>
+    </a-camera>
+
+    <a-box grabbable obb-collider color="red" 
+       scale="0.5 0.5 0.5" 
+       position="0 1 -2">
+    </a-box>
+
+
+    <!--
+    //**********//
+    //End FULL GUIDE//
+    //**********//
+    -->
+
+    <!-- <a-box position="0 1.4 -5" color="red"></a-box> -->
+
+
+  </a-scene>
+  <script src="js/textToSpeech.js"></script>
+  <script src="js/listeners.js"></script>
+  <script src="js/guides.js"></script>
+</body>
+
 </html>
