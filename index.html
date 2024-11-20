@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <a-scene xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true;
+  <a-scene obb-collider="showColliders: true" xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true;
      physicallyCorrectLights: false;">
 
     <a-assets>
@@ -59,17 +59,8 @@
     </a-entity>
 
     <!-- Controladores para manos -->
-<a-entity id="leftHand" 
-  hand-tracking-controls="hand: left;"
-  hand-tracking-grab
-  obb-collider>
-</a-entity>
-
-<a-entity id="rightHand" 
-  hand-tracking-controls="hand: right;"
-  hand-tracking-grab
-  obb-collider>
-</a-entity>
+    <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;" obb-collider></a-entity>
+<a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity>
 
       <!-- Cámara con look-controls y wasd-controls -->
     <a-camera id="camara-cursor" wasd-controls look-controls>
