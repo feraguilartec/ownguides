@@ -2,41 +2,79 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Experiencia Inmersiva con A-Frame</title>
-    <!-- A-Frame library -->
+    <title>Experiencia Inmersiva con Vision Pro</title>
+    <!-- A-Frame Library -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <!-- A-Frame extras for hand tracking -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
-    <!-- A-Frame hand-controls component -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.controls.min.js"></script>
-    <!-- A-Frame super-hands component for interaction -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-super-hands-component@4.0.5/dist/aframe-super-hands-component.min.js"></script>
+    <!-- A-Frame WebXR Hand Tracking -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-xr-hand-tracking@1.2.0/dist/aframe-xr-hand-tracking.min.js"></script>
+    <!-- Gaze Pinch Component -->
+    <script>
+      AFRAME.registerComponent('gaze-pinch-interaction', {
+        schema: { default: '' },
+        init: function () {
+          const el = this.el;
+
+          // Monitor gaze and pinch actions
+          this.el.sceneEl.addEventListener('pinchstarted', (evt) => {
+            if (evt.detail.intersectedEl === el) {
+              el.setAttribute('material', 'color', '#FF5722'); // Highlight on selection
+            }
+          });
+
+          this.el.sceneEl.addEventListener('pinchended', () => {
+            el.setAttribute('material', 'color', '#4CC3D9'); // Revert color
+          });
+        },
+      });
+    </script>
   </head>
   <body>
-    <a-scene>
+    <a-scene
+      vr-mode-ui="enabled: true"
+      xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]"
+    >
       <!-- Entorno -->
       <a-sky color="#ECECEC"></a-sky>
 
-      <!-- Objeto interactivo (esfera) -->
+      <!-- Esfera interactiva -->
       <a-sphere
-        id="interactable-sphere"
+        id="interactive-sphere"
         position="0 1.25 -1"
         radius="0.5"
         color="#4CC3D9"
-        grabbable
-        stretchable
-        draggable
+        class="interactive"
+        gaze-pinch-interaction
       ></a-sphere>
 
-      <!-- Controladores de mano -->
+      <!-- Controladores para manos -->
       <a-entity
-        hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"
-        super-hands
+        id="left-hand"
+        hand-tracking-controls="hand: left"
+        xr-hand-tracking
+        hand-model
+        position="0 1 -1.5"
       ></a-entity>
       <a-entity
-        hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"
-        super-hands
+        id="right-hand"
+        hand-tracking-controls="hand: right"
+        xr-hand-tracking
+        hand-model
+        position="0 1 -1.5"
       ></a-entity>
+
+      <!-- Cámara con Gaze Tracking -->
+      <a-camera
+        position="0 1.6 0"
+        look-controls="enabled: true"
+        id="gaze-camera"
+      >
+        <a-entity
+          id="cursor"
+          cursor="rayOrigin: mouse"
+          geometry="primitive: ring; radiusOuter: 0.02; radiusInner: 0.01"
+          material="color: black; shader: flat"
+        ></a-entity>
+      </a-camera>
     </a-scene>
   </body>
 </html>
