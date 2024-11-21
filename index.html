@@ -1,19 +1,14 @@
 <html>
-
 <head>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script> 
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aframe-xr-hand-tracking@1.2.0/dist/aframe-xr-hand-tracking.min.js"></script>
-
 </head>
-
 <body>
-  <a-scene obb-collider="showColliders: true" xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true;
-     physicallyCorrectLights: false;">
-
+  <a-scene xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true; physicallyCorrectLights: false;">
+  <!-- <a-scene obb-collider="showColliders: true" xr-mode-ui="XRMode: xr" xrweb="allowedFeatures: [ 'hand-tracking', 'eye-tracking' ]" raycaster="objects: .button" renderer="sortObjects: true; physicallyCorrectLights: false;"> -->  
     <a-assets>
-
       <img id="back_on" src="media/img/ui/back_on.png" alt="">
       <img id="back" src="media/img/ui/back.png" alt="">
       <img id="down_on" src="media/img/ui/down_on.png" alt="">
@@ -44,25 +39,18 @@
       <img id="page_bg" src="media/img/ui/page_bg.png" alt="">
       <img id="volume_mute" src="media/img/ui/mute.png" alt="">
       <img id="volume_voice" src="media/img/ui/volume.png" alt="">
-
       <a-asset-item id="bg" src="media/models/bg.glb"></a-asset-item>
     </a-assets>
 
-
-    <!--
-    //**********//
-    //FULL GUIDE//
-    //**********//
-    -->
-
-    <a-entity position="0 1.4 -3" guide>
-    </a-entity>
+    <a-entity position="0 1.4 -3" guide></a-entity>
 
     <!-- Controladores para manos -->
-    <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;" obb-collider></a-entity>
-<a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity>
+    <!-- <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;" obb-collider></a-entity> -->
+    <!-- <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity> -->
+    <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;"></a-entity>
+    <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
-      <!-- Cámara con look-controls y wasd-controls -->
+    <!-- Cámara con look-controls y wasd-controls -->
     <a-camera id="camara-cursor" wasd-controls look-controls>
       <!-- Crosshair centrado -->
       <a-entity 
@@ -74,27 +62,18 @@
     </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
-<a-box grabbable 
+    <a-box grabbable 
        color="red" 
        scale="0.5 0.5 0.5" 
        position="0 0 -1" 
        dynamic-body>
-</a-box>
-
-
-    <!--
-    //**********//
-    //End FULL GUIDE//
-    //**********//
-    -->
-
-    <!-- <a-box position="0 1.4 -5" color="red"></a-box> -->
-
-
+    </a-box>
   </a-scene>
+
+  <!-- Scripts Guides -->
   <script src="js/textToSpeech.js"></script>
   <script src="js/listeners.js"></script>
   <script src="js/guides.js"></script>
+  
 </body>
-
 </html>
