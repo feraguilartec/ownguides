@@ -1,9 +1,11 @@
 <html>
+
 <head>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script> 
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aframe-xr-hand-tracking@1.2.0/dist/aframe-xr-hand-tracking.min.js"></script>
+
 </head>
 
 <body>
@@ -11,7 +13,8 @@
      physicallyCorrectLights: false;">
 
     <a-assets>
-            <img id="back_on" src="media/img/ui/back_on.png" alt="">
+
+      <img id="back_on" src="media/img/ui/back_on.png" alt="">
       <img id="back" src="media/img/ui/back.png" alt="">
       <img id="down_on" src="media/img/ui/down_on.png" alt="">
       <img id="down" src="media/img/ui/down.png" alt="">
@@ -41,71 +44,57 @@
       <img id="page_bg" src="media/img/ui/page_bg.png" alt="">
       <img id="volume_mute" src="media/img/ui/mute.png" alt="">
       <img id="volume_voice" src="media/img/ui/volume.png" alt="">
+
       <a-asset-item id="bg" src="media/models/bg.glb"></a-asset-item>
     </a-assets>
+
+
+    <!--
+    //**********//
+    //FULL GUIDE//
+    //**********//
+    -->
+
     <a-entity position="0 1.4 -3" guide>
     </a-entity>
 
     <!-- Controladores para manos -->
     <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;" obb-collider></a-entity>
-    <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity>
+<a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity>
 
-    <!-- Cámara con look-controls y wasd-controls -->
+      <!-- Cámara con look-controls y wasd-controls -->
     <a-camera id="camara-cursor" wasd-controls look-controls>
       <!-- Crosshair centrado -->
       <a-entity 
         cursor="fuse: false; rayOrigin: entity" 
         position="0 0 -1" 
         geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
-        material="color: black; shader: flat" 
-        raycaster="objects: .grabbable; far: 5" 
-        cursor-grabber>
+        material="color: black; shader: flat">
       </a-entity>
     </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
-    <a-box grabbable 
-           color="red" 
-           scale="0.5 0.5 0.5" 
-           position="0 0 -1" 
-           dynamic-body>
-    </a-box>
-  </a-scene>
+<a-box grabbable 
+       color="red" 
+       scale="0.5 0.5 0.5" 
+       position="0 0 -1" 
+       dynamic-body>
+</a-box>
 
-  <!-- Otros scripts -->
+
+    <!--
+    //**********//
+    //End FULL GUIDE//
+    //**********//
+    -->
+
+    <!-- <a-box position="0 1.4 -5" color="red"></a-box> -->
+
+
+  </a-scene>
   <script src="js/textToSpeech.js"></script>
   <script src="js/listeners.js"></script>
   <script src="js/guides.js"></script>
-
-  <!-- Componente personalizado -->
-  <script>
-    AFRAME.registerComponent('cursor-grabber', {
-      init: function () {
-        this.raycaster = this.el.components.raycaster;
-        this.grabbedObject = null;
-
-        this.el.addEventListener('raycaster-intersected', evt => {
-          this.grabbedObject = evt.detail.el;
-        });
-
-        this.el.addEventListener('raycaster-intersected-cleared', () => {
-          this.grabbedObject = null;
-        });
-
-        this.el.sceneEl.addEventListener('mousedown', () => {
-          if (this.grabbedObject && this.grabbedObject.components.grabbable) {
-            this.grabbedObject.emit('grab-start', { hand: this.el });
-          }
-        });
-
-        this.el.sceneEl.addEventListener('mouseup', () => {
-          if (this.grabbedObject && this.grabbedObject.components.grabbable) {
-            this.grabbedObject.emit('grab-end', { hand: this.el });
-          }
-        });
-      },
-    });
-  </script>
 </body>
-</html>
 
+</html>
