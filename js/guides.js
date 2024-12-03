@@ -68,7 +68,6 @@ AFRAME.registerComponent('guide', {
     fwd.setAttribute("position", "0.795 0.22 0.02");
     fwd.setAttribute("geometry", "primitive:plane; width:.16; height:.16");
     fwd.setAttribute("material", "src:#fwd; opacity:.99;");
-    fwd.setAttribute("event-set__mouseenter", "animation__arc.enabled: true; animation__segments.enabled: true");
 
     var up = document.createElement("a-entity");
     up.setAttribute("class", "button");
