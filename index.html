@@ -51,46 +51,61 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-    <a-camera id="camara-cursor" wasd-controls look-controls>
-  <!-- Animaciones del cursor con fuse -->
+<a-camera id="camara-cursor" wasd-controls look-controls>
+  <!-- Cursor personalizado con animaciones -->
   <a-entity 
-    cursor="fuse: true; fuseTimeout: 1000; rayOrigin: entity" 
-    position="0 0 -1">
-
-    <!-- Anillo verde animado -->
+    cursor="fuse: true; rayOrigin: entity; fuseTimeout: 1000" 
+    position="0 0 -1"
+    cursor-animation-handler>
+    
+    <!-- Primer anillo animado -->
     <a-entity 
-      position="0 0 0" 
-      material="color:green;shader:flat" 
-      geometry="primitive:torus; radius:.05; radiusTubular:.005; segmentsTubular:32; segmentsRadial:3" 
-      animation__arc="property:geometry.arc; from:0; to:360; loop:false; dur:1000; easing:linear; enabled:false;" 
-      animation__segments="property:geometry.segmentsTubular; from:1; to:32; loop:false; dur:1000; easing:linear; enabled:false;">
+      material="color: green; shader: flat" 
+      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
+      animation__arc="property: geometry.arc; from: 0; to: 360; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation"
+      animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation">
     </a-entity>
 
-    <!-- Anillo rojo animado -->
+    <!-- Segundo anillo animado -->
     <a-entity 
-      position="0 0 0" 
       scale="1 -1 1" 
-      material="color:red;shader:flat" 
-      geometry="primitive:torus; radius:.05; radiusTubular:.005; segmentsTubular:32; segmentsRadial:3" 
-      animation__arc="property:geometry.arc; from:360; to:0; loop:false; dur:1000; easing:linear; enabled:false;" 
-      animation__segments="property:geometry.segmentsTubular; from:32; to:1; loop:false; dur:1000; easing:linear; enabled:false;">
+      material="color: red; shader: flat" 
+      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
+      animation__arc="property: geometry.arc; from: 360; to: 0; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation"
+      animation__segments="property: geometry.segmentsTubular; from: 32; to: 1; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation">
     </a-entity>
 
   </a-entity>
 </a-camera>
 
+<!-- Componente personalizado para manejar las animaciones del cursor -->
 <script>
-  // Activa las animaciones al iniciar el fuse
-  document.querySelector('[cursor]').addEventListener('fusing', () => {
-    // Activa las animaciones del anillo verde
-    document.querySelector('a-entity > a-entity:nth-child(1)').setAttribute('animation__arc', 'enabled: true');
-    document.querySelector('a-entity > a-entity:nth-child(1)').setAttribute('animation__segments', 'enabled: true');
+  AFRAME.registerComponent('cursor-animation-handler', {
+    init: function () {
+      var el = this.el;
+      var animations = el.querySelectorAll('a-entity');
+      
+      el.addEventListener('fusing', function () {
+        animations.forEach(function (animEl) {
+          animEl.emit('startAnimation');
+        });
+      });
 
-    // Activa las animaciones del anillo rojo
-    document.querySelector('a-entity > a-entity:nth-child(2)').setAttribute('animation__arc', 'enabled: true');
-    document.querySelector('a-entity > a-entity:nth-child(2)').setAttribute('animation__segments', 'enabled: true');
+      el.addEventListener('mouseleave', function () {
+        animations.forEach(function (animEl) {
+          animEl.emit('stopAnimation');
+        });
+      });
+
+      el.addEventListener('click', function () {
+        animations.forEach(function (animEl) {
+          animEl.emit('stopAnimation');
+        });
+      });
+    }
   });
 </script>
+
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
