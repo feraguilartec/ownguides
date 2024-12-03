@@ -74,6 +74,7 @@
                 const intersectedEl = evt.detail.el;
                 if (intersectedEl.classList.contains("button")) {
                     // Activa la animación
+                    console.log("Entra animación");
                     cursorAnimado.setAttribute("animation__arc", "enabled", true);
                 }
             });
@@ -92,6 +93,7 @@
 
                 // Deshabilita la animación para que pueda ser reactivada
                 cursorAnimado.setAttribute("animation__arc", "enabled", false);
+                console.log("Sale animación");
             });
         });
     </script>
