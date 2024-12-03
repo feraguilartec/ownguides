@@ -51,16 +51,19 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-    <a-camera id="camara-cursor" wasd-controls look-controls>
-      <!-- Crosshair centrado -->
-      	<a-entity
-	cursor="fuse: true; 
-	rayOrigin: entity";
-	position="0 0 -1" scale="1 -1 1" material="color:red;shader:flat" geometry="primitive:torus; radius:.05; radiusTubular:.005;segmentsTubular:32;segmentsRadial:3"
-        
-            animation__arc="property:geometry.arc; to:0; from:360; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"
-            animation__segments="property:geometry.segmentsTubular; to:1; to:32; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"></a-entity>
-    </a-camera>
+<a-camera id="camara-cursor" wasd-controls look-controls>
+  <!-- Crosshair animado -->
+  <a-entity 
+    id="anillo-animado"
+    position="0 0 -1" 
+    material="color: green; shader: flat" 
+    geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3" 
+    cursor="fuse: true; rayOrigin: entity" 
+    event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
+    animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false"
+    animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false">
+  </a-entity>
+</a-camera>
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
