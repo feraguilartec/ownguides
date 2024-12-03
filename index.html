@@ -54,7 +54,8 @@
     <a-camera id="camara-cursor" wasd-controls look-controls>
       <!-- Crosshair centrado -->
       <a-entity 
-        cursor="fuse: false; rayOrigin: entity" 
+        cursor="fuse: false; rayOrigin: entity"
+        raycaster="objects: .button"
         position="0 0 -1" 
         geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
         material="color: black; shader: flat">
@@ -74,6 +75,23 @@
   <script src="js/textToSpeech.js"></script>
   <script src="js/listeners.js"></script>
   <script src="js/guides.js"></script>
+  <script>
+    AFRAME.registerComponent('log-on-intersect', {
+      init: function () {
+        const raycasterEl = this.el; // Entidad con el raycaster
+        raycasterEl.addEventListener('raycaster-intersected', (evt) => {
+          console.log('Raycaster intersected with:', evt.detail.el); // Objeto intersectado
+        });
+  
+        raycasterEl.addEventListener('raycaster-intersected-cleared', (evt) => {
+          console.log('Raycaster left:', evt.detail.el); // Objeto que ya no está intersectado
+        });
+      },
+    });
+  
+    // Agregar el componente al cursor (o donde uses el raycaster)
+    document.querySelector('[raycaster]').setAttribute('log-on-intersect', '');
+  </script>
   
 </body>
 </html>
