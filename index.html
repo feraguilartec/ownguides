@@ -51,31 +51,46 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-  <a-camera id="camara-cursor" wasd-controls look-controls>
-    <!-- Cursor con las nuevas animaciones activadas por fuse -->
+    <a-camera id="camara-cursor" wasd-controls look-controls>
+  <!-- Animaciones del cursor con fuse -->
+  <a-entity 
+    cursor="fuse: true; fuseTimeout: 1000; rayOrigin: entity" 
+    position="0 0 -1">
+
+    <!-- Anillo verde animado -->
     <a-entity 
-      position="0 0 -1"
-      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 1; segmentsRadial: 3"
-      material="color: green; shader: flat"
-      cursor="fuse: true; rayOrigin: entity" 
-      animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false;"
-      animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false;"
-      event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
-      event-set__mouseleave="animation__arc.enabled: false; animation__segments.enabled: false">
+      position="0 0 0" 
+      material="color:green;shader:flat" 
+      geometry="primitive:torus; radius:.05; radiusTubular:.005; segmentsTubular:32; segmentsRadial:3" 
+      animation__arc="property:geometry.arc; from:0; to:360; loop:false; dur:1000; easing:linear; enabled:false;" 
+      animation__segments="property:geometry.segmentsTubular; from:1; to:32; loop:false; dur:1000; easing:linear; enabled:false;">
     </a-entity>
 
+    <!-- Anillo rojo animado -->
     <a-entity 
-      position="0 0 -1"
-      scale="1 -1 1"
-      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
-      material="color: red; shader: flat"
-      cursor="fuse: true; rayOrigin: entity" 
-      animation__arc="property: geometry.arc; from: 360; to: 0; loop: false; dur: 1000; easing: linear; enabled: false;"
-      animation__segments="property: geometry.segmentsTubular; from: 32; to: 1; loop: false; dur: 1000; easing: linear; enabled: false;"
-      event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
-      event-set__mouseleave="animation__arc.enabled: false; animation__segments.enabled: false">
+      position="0 0 0" 
+      scale="1 -1 1" 
+      material="color:red;shader:flat" 
+      geometry="primitive:torus; radius:.05; radiusTubular:.005; segmentsTubular:32; segmentsRadial:3" 
+      animation__arc="property:geometry.arc; from:360; to:0; loop:false; dur:1000; easing:linear; enabled:false;" 
+      animation__segments="property:geometry.segmentsTubular; from:32; to:1; loop:false; dur:1000; easing:linear; enabled:false;">
     </a-entity>
-  </a-camera>
+
+  </a-entity>
+</a-camera>
+
+<script>
+  // Activa las animaciones al iniciar el fuse
+  document.querySelector('[cursor]').addEventListener('fusing', () => {
+    // Activa las animaciones del anillo verde
+    document.querySelector('a-entity > a-entity:nth-child(1)').setAttribute('animation__arc', 'enabled: true');
+    document.querySelector('a-entity > a-entity:nth-child(1)').setAttribute('animation__segments', 'enabled: true');
+
+    // Activa las animaciones del anillo rojo
+    document.querySelector('a-entity > a-entity:nth-child(2)').setAttribute('animation__arc', 'enabled: true');
+    document.querySelector('a-entity > a-entity:nth-child(2)').setAttribute('animation__segments', 'enabled: true');
+  });
+</script>
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
