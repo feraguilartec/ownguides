@@ -51,15 +51,31 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-    <a-camera id="camara-cursor" wasd-controls look-controls>
-      <!-- Crosshair centrado -->
-      <a-entity 
-        cursor="fuse: true; rayOrigin: entity" 
-        position="0 0 -1" 
-        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
-        material="color: black; shader: flat">
-      </a-entity>
-    </a-camera>
+  <a-camera id="camara-cursor" wasd-controls look-controls>
+    <!-- Cursor con las nuevas animaciones activadas por fuse -->
+    <a-entity 
+      position="0 0 -1"
+      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 1; segmentsRadial: 3"
+      material="color: green; shader: flat"
+      cursor="fuse: true; rayOrigin: entity" 
+      animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false;"
+      animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false;"
+      event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
+      event-set__mouseleave="animation__arc.enabled: false; animation__segments.enabled: false">
+    </a-entity>
+
+    <a-entity 
+      position="0 0 -1"
+      scale="1 -1 1"
+      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
+      material="color: red; shader: flat"
+      cursor="fuse: true; rayOrigin: entity" 
+      animation__arc="property: geometry.arc; from: 360; to: 0; loop: false; dur: 1000; easing: linear; enabled: false;"
+      animation__segments="property: geometry.segmentsTubular; from: 32; to: 1; loop: false; dur: 1000; easing: linear; enabled: false;"
+      event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
+      event-set__mouseleave="animation__arc.enabled: false; animation__segments.enabled: false">
+    </a-entity>
+  </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
