@@ -51,9 +51,8 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-<a-camera id="camara-cursor" wasd-controls look-controls>
-  <!-- Anillo animado como cursor -->
-  <a-entity 
+    <a-camera id="camara-cursor" wasd-controls look-controls>
+            <a-entity 
                 id="cursor-animado"
                 position="0 0 -1" 
                 material="color: green; shader: flat" 
@@ -62,14 +61,15 @@
                 raycaster="objects: .button"
                 cursor="fuse: true; rayOrigin: entity">
             </a-entity>
-</a-camera>
+        </a-camera>
 
+        <!-- Script para la lógica de animación -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Selecciona el cursor animado
             const cursorAnimado = document.querySelector("#cursor-animado");
 
-            // Evento al entrar en un objeto interactivo
+            // Define un evento al interactuar con elementos
             cursorAnimado.addEventListener("raycaster-intersected", (evt) => {
                 const intersectedEl = evt.detail.el;
                 if (intersectedEl.classList.contains("button")) {
@@ -79,13 +79,19 @@
             });
 
             // Evento al salir de un objeto interactivo
-            cursorAnimado.addEventListener("raycaster-intersected-cleared", (evt) => {
-                const intersectedEl = evt.detail.el;
-                if (intersectedEl.classList.contains("button")) {
-                    // Reinicia la geometría
-                    cursorAnimado.setAttribute("geometry", "arc: 0");
-                    cursorAnimado.setAttribute("animation__arc", "enabled", false);
-                }
+            cursorAnimado.addEventListener("raycaster-intersected-cleared", () => {
+                // Reinicia el arco del torus
+                cursorAnimado.setAttribute("geometry", {
+                    primitive: "torus",
+                    radius: 0.05,
+                    radiusTubular: 0.005,
+                    segmentsTubular: 32,
+                    segmentsRadial: 3,
+                    arc: 0, // Reinicia el arco a 0
+                });
+
+                // Deshabilita la animación para que pueda ser reactivada
+                cursorAnimado.setAttribute("animation__arc", "enabled", false);
             });
         });
     </script>
