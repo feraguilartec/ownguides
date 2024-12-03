@@ -52,18 +52,50 @@
 
     <!-- Cámara con look-controls y wasd-controls -->
 <a-camera id="camara-cursor" wasd-controls look-controls>
-  <!-- Crosshair animado -->
+  <!-- Anillo animado como cursor -->
   <a-entity 
-    id="anillo-animado"
+    id="cursor-animado"
     position="0 0 -1" 
     material="color: green; shader: flat" 
     geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3" 
-    cursor="fuse: true; rayOrigin: entity" 
-    event-set__mouseenter="animation__arc.enabled: true; animation__segments.enabled: true"
-    animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false"
-    animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false">
+    animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false;" 
+    animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false;" 
+    raycaster="objects: .button"
+    cursor="fuse: true; rayOrigin: entity">
   </a-entity>
 </a-camera>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    // Selecciona el cursor animado
+    const cursorAnimado = document.querySelector("#cursor-animado");
+
+    // Evento al entrar en un objeto interactivo
+    cursorAnimado.addEventListener("raycaster-intersected", (evt) => {
+        const intersectedEl = evt.detail.el;
+        if (intersectedEl.classList.contains("button")) {
+            cursorAnimado.setAttribute("animation__arc", "enabled", true);
+            cursorAnimado.setAttribute("animation__segments", "enabled", true);
+
+            // Reinicia la animación para que se ejecute nuevamente
+            cursorAnimado.components["animation__arc"].beginAnimation();
+            cursorAnimado.components["animation__segments"].beginAnimation();
+        }
+    });
+
+    // Evento al salir de un objeto interactivo (opcional, si quieres deshabilitar algo al salir)
+    cursorAnimado.addEventListener("raycaster-intersected-cleared", (evt) => {
+        const intersectedEl = evt.detail.el;
+        if (intersectedEl.classList.contains("button")) {
+            cursorAnimado.setAttribute("animation__arc", "enabled", false);
+            cursorAnimado.setAttribute("animation__segments", "enabled", false);
+        }
+    });
+});
+
+    </script>
+    
+
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
