@@ -54,45 +54,40 @@
 <a-camera id="camara-cursor" wasd-controls look-controls>
   <!-- Anillo animado como cursor -->
   <a-entity 
-    id="cursor-animado"
-    position="0 0 -1" 
-    material="color: green; shader: flat" 
-    geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3" 
-    animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false;" 
-    animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1000; easing: linear; enabled: false; autoplay: false;" 
-    raycaster="objects: .button"
-    cursor="fuse: true; rayOrigin: entity">
-  </a-entity>
+                id="cursor-animado"
+                position="0 0 -1" 
+                material="color: green; shader: flat" 
+                geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3; arc: 0" 
+                animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false;" 
+                raycaster="objects: .button"
+                cursor="fuse: true; rayOrigin: entity">
+            </a-entity>
 </a-camera>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-    // Selecciona el cursor animado
-    const cursorAnimado = document.querySelector("#cursor-animado");
+        document.addEventListener("DOMContentLoaded", function () {
+            // Selecciona el cursor animado
+            const cursorAnimado = document.querySelector("#cursor-animado");
 
-    // Evento al entrar en un objeto interactivo
-    cursorAnimado.addEventListener("raycaster-intersected", (evt) => {
-        const intersectedEl = evt.detail.el;
-        if (intersectedEl.classList.contains("button")) {
-            cursorAnimado.setAttribute("animation__arc", "enabled", true);
-            cursorAnimado.setAttribute("animation__segments", "enabled", true);
+            // Evento al entrar en un objeto interactivo
+            cursorAnimado.addEventListener("raycaster-intersected", (evt) => {
+                const intersectedEl = evt.detail.el;
+                if (intersectedEl.classList.contains("button")) {
+                    // Activa la animación
+                    cursorAnimado.setAttribute("animation__arc", "enabled", true);
+                }
+            });
 
-            // Reinicia la animación para que se ejecute nuevamente
-            cursorAnimado.components["animation__arc"].beginAnimation();
-            cursorAnimado.components["animation__segments"].beginAnimation();
-        }
-    });
-
-    // Evento al salir de un objeto interactivo (opcional, si quieres deshabilitar algo al salir)
-    cursorAnimado.addEventListener("raycaster-intersected-cleared", (evt) => {
-        const intersectedEl = evt.detail.el;
-        if (intersectedEl.classList.contains("button")) {
-            cursorAnimado.setAttribute("animation__arc", "enabled", false);
-            cursorAnimado.setAttribute("animation__segments", "enabled", false);
-        }
-    });
-});
-
+            // Evento al salir de un objeto interactivo
+            cursorAnimado.addEventListener("raycaster-intersected-cleared", (evt) => {
+                const intersectedEl = evt.detail.el;
+                if (intersectedEl.classList.contains("button")) {
+                    // Reinicia la geometría
+                    cursorAnimado.setAttribute("geometry", "arc: 0");
+                    cursorAnimado.setAttribute("animation__arc", "enabled", false);
+                }
+            });
+        });
     </script>
     
 
