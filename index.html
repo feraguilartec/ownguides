@@ -51,59 +51,15 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-    <!-- Cámara con raycaster y cursor -->
-        <a-camera id="camara-cursor" wasd-controls look-controls>
-            <a-entity 
-                id="cursor-animado"
-                position="0 0 -1"
-                geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3; arc: 0"
-                material="color: green; shader: flat"
-                animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1000; easing: linear; enabled: false;"
-                raycaster="objects: .button; showLine: true"
-                cursor="fuse: true; rayOrigin: entity">
-            </a-entity>
-        </a-camera>
-
-        <!-- Botón interactivo -->
-        <a-entity 
-            class="button"
-            geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5" 
-            material="color: red" 
-            position="0 1 -3"></a-entity>
-
-        <!-- Script para la lógica de animación -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Selecciona los botones interactivos
-            const botones = document.querySelectorAll(".button");
-            const cursorAnimado = document.querySelector("#cursor-animado");
-
-            // Añade eventos a cada botón
-            botones.forEach((boton) => {
-                // Cuando el cursor entra en el botón
-                boton.addEventListener("raycaster-intersected", () => {
-                    console.log("Cursor sobre el botón");
-                    cursorAnimado.setAttribute("animation__arc", "enabled", true);
-                });
-
-                // Cuando el cursor sale del botón
-                boton.addEventListener("raycaster-intersected-cleared", () => {
-                    console.log("Cursor fuera del botón");
-                    cursorAnimado.setAttribute("geometry", {
-                        primitive: "torus",
-                        radius: 0.05,
-                        radiusTubular: 0.005,
-                        segmentsTubular: 32,
-                        segmentsRadial: 3,
-                        arc: 0, // Reinicia el arco
-                    });
-                    cursorAnimado.setAttribute("animation__arc", "enabled", false);
-                });
-            });
-        });
-    </script>
-    
-
+    <a-camera id="camara-cursor" wasd-controls look-controls>
+      <!-- Crosshair centrado -->
+      <a-entity 
+        cursor="fuse: false; rayOrigin: entity" 
+        position="0 0 -1" 
+        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
+        material="color: black; shader: flat">
+      </a-entity>
+    </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
