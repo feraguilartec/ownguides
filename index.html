@@ -56,8 +56,10 @@
       	<a-entity
 	cursor="fuse: true; 
 	rayOrigin: entity";
-	position="0 0 -1" 
-material="color:green;shader:flat" geometry="primitive:torus; radius:.05; radiusTubular:.005;segmentsTubular:32;segmentsRadial:3"                    animation__arc="property:geometry.arc; from:0; to:360; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"            animation__segments="property:geometry.segmentsTubular; from:1; to:32; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"></a-entity>
+	position="0 0 -1" scale="1 -1 1" material="color:red;shader:flat" geometry="primitive:torus; radius:.05; radiusTubular:.005;segmentsTubular:32;segmentsRadial:3"
+        
+            animation__arc="property:geometry.arc; to:0; from:360; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"
+            animation__segments="property:geometry.segmentsTubular; to:1; to:32; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"></a-entity>
     </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
