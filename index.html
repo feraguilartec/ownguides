@@ -51,61 +51,14 @@
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-<a-camera id="camara-cursor" wasd-controls look-controls>
-  <!-- Cursor personalizado con animaciones -->
-  <a-entity 
-    cursor="fuse: true; rayOrigin: entity; fuseTimeout: 1000" 
-    position="0 0 -1"
-    cursor-animation-handler>
-    
-    <!-- Primer anillo animado -->
-    <a-entity 
-      material="color: green; shader: flat" 
-      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
-      animation__arc="property: geometry.arc; from: 0; to: 360; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation"
-      animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation">
-    </a-entity>
-
-    <!-- Segundo anillo animado -->
-    <a-entity 
-      scale="1 -1 1" 
-      material="color: red; shader: flat" 
-      geometry="primitive: torus; radius: 0.05; radiusTubular: 0.005; segmentsTubular: 32; segmentsRadial: 3"
-      animation__arc="property: geometry.arc; from: 360; to: 0; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation"
-      animation__segments="property: geometry.segmentsTubular; from: 32; to: 1; dur: 1000; easing: linear; enabled: false; startEvents: startAnimation; stopEvents: stopAnimation">
-    </a-entity>
-
-  </a-entity>
-</a-camera>
-
-<!-- Componente personalizado para manejar las animaciones del cursor -->
-<script>
-  AFRAME.registerComponent('cursor-animation-handler', {
-    init: function () {
-      var el = this.el;
-      var animations = el.querySelectorAll('a-entity');
-      
-      el.addEventListener('fusing', function () {
-        animations.forEach(function (animEl) {
-          animEl.emit('startAnimation');
-        });
-      });
-
-      el.addEventListener('mouseleave', function () {
-        animations.forEach(function (animEl) {
-          animEl.emit('stopAnimation');
-        });
-      });
-
-      el.addEventListener('click', function () {
-        animations.forEach(function (animEl) {
-          animEl.emit('stopAnimation');
-        });
-      });
-    }
-  });
-</script>
-
+    <a-camera id="camara-cursor" wasd-controls look-controls>
+      <!-- Crosshair centrado -->
+      	<a-entity
+	cursor="fuse: true; 
+	rayOrigin: entity";
+	position="0 0 -1" 
+material="color:green;shader:flat" geometry="primitive:torus; radius:.05; radiusTubular:.005;segmentsTubular:32;segmentsRadial:3"                    animation__arc="property:geometry.arc; from:0; to:360; loop:false; dur:1000; easing:linear; enabled:true; autoplay:true;"            animation__segments="property:geometry.segmentsTubular; from:1; to:32; loop:true; dur:1000; easing:linear; enabled:true; autoplay:true;"></a-entity>
+    </a-camera>
 
     <!-- Caja Roja (Grabbable) -->
     <a-box grabbable 
