@@ -52,23 +52,18 @@
 
     <!-- Cámara con look-controls y wasd-controls -->
     <a-camera id="camara-cursor" wasd-controls look-controls>
-      <!-- Crosshair centrado -->
-      <a-entity 
-        cursor="fuse: false; rayOrigin: entity"
-        raycaster="objects: .button"
-        position="0 0 -1" 
-        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" 
-        material="color: black; shader: flat">
-      </a-entity>
-    </a-camera>
+      <a-entity id="cursor-animado" 
+          cursor="fuse: true; rayOrigin: entity; fuseTimeout: 1500" 
+          cursor-fuse-click
+          raycaster="objects: .button" 
+          position="0 0 -1" 
+          material="color: #6de5f7; shader: flat" 
+          geometry="primitive: torus; radius: 0.01; radiusTubular: 0.002; segmentsTubular: 32; segmentsRadial: 3"
+          animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1400; easing: linear; enabled: false;"
+          animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1400; easing: linear; enabled: false;">
+</a-entity>
 
-    <!-- Caja Roja (Grabbable) -->
-    <a-box grabbable 
-       color="red" 
-       scale="0.5 0.5 0.5" 
-       position="0 0 -1" 
-       dynamic-body>
-    </a-box>
+    </a-camera>
   </a-scene>
 
   <!-- Scripts Guides -->
@@ -78,13 +73,73 @@
   <script>
     AFRAME.registerComponent('log-on-intersect', {
       init: function () {
-        const raycasterEl = this.el; // Entidad con el raycaster
-        raycasterEl.addEventListener('raycaster-intersected', (evt) => {
-          console.log('Raycaster intersected with:', evt.detail.el); // Objeto intersectado
+        const button = document.querySelector('#fwd_button');
+        const cursor = document.querySelector('#cursor-animado');
+
+        const resetCursor = () => {
+        // Configurar el estado inicial (toro completo)
+        cursor.setAttribute('geometry', {
+            primitive: 'torus',
+            radius: 0.01,
+            radiusTubular: 0.002,
+            segmentsTubular: 32,
+            segmentsRadial: 3,
+            arc: 360, // Mostrar el toro completo
+          });
+        };
+  
+        button.addEventListener('raycaster-intersected', () => {
+          // Reiniciar y reproducir animaciones al entrar
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: 0,
+            to: 360,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: 1,
+            to: 32,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
         });
   
-        raycasterEl.addEventListener('raycaster-intersected-cleared', (evt) => {
-          console.log('Raycaster left:', evt.detail.el); // Objeto que ya no está intersectado
+        button.addEventListener('raycaster-intersected-cleared', () => {
+          // Obtener progreso actual
+          const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
+          const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
+  
+          // Configurar animación inversa
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: arcProgress,
+            to: 0,
+            loop: false,
+            dur: 1400 * (arcProgress / 360),
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: segmentProgress,
+            to: 1,
+            loop: false,
+            dur: 1400 * ((segmentProgress - 1) / 31),
+            easing: 'linear',
+            enabled: true,
+          });
+
+          cursor.addEventListener('animationcomplete', (event) => {
+            resetCursor();
+          });
         });
       },
     });
@@ -92,6 +147,64 @@
     // Agregar el componente al cursor (o donde uses el raycaster)
     document.querySelector('[raycaster]').setAttribute('log-on-intersect', '');
   </script>
+  <script>
+    AFRAME.registerComponent('cursor-fuse-click', {
+      init: function () {
+        var el = this.el;
+        
+        // Funciones para manejar los eventos
+        this.onMouseDown = this.onMouseDown.bind(this);
+        this.onMouseUp = this.onMouseUp.bind(this);
+  
+        // Agregar los listeners para mousedown y mouseup
+        el.addEventListener('mousedown', this.onMouseDown);
+        el.addEventListener('mouseup', this.onMouseUp);
+      },
+      remove: function () {
+        var el = this.el;
+        el.removeEventListener('mousedown', this.onMouseDown);
+        el.removeEventListener('mouseup', this.onMouseUp);
+      },
+      onMouseDown: function (evt) {
+        // Manejar el evento mousedown
+        console.log('Evento mousedown detectado');
+      },
+      onMouseUp: function (evt) {
+        // Manejar el evento mouseup
+        console.log('Evento mouseup detectado');
+        // Obtener las intersecciones actuales del raycaster
+      var raycaster = this.el.components.raycaster;
+      var intersections = raycaster.intersections;
+
+      if (intersections && intersections.length > 0) {
+        // Iterar sobre las intersecciones para encontrar un elemento con la clase 'button'
+        for (var i = 0; i < intersections.length; i++) {
+          var intersectedEl = intersections[i].object.el;
+
+          if (intersectedEl && intersectedEl.classList && intersectedEl.classList.contains('button')) {
+            // Disparar el evento de clic en el elemento intersectado
+            intersectedEl.emit('click', {intersectedEl: intersectedEl});
+            console.log('Evento clic disparado en:', intersectedEl);
+            break; // Salir del bucle después de encontrar el primer botón
+          }
+        }
+      }
+  
+        // Obtener el elemento intersectado
+        var intersections = this.el.components.raycaster.intersections;
+        if (intersections.length > 0) {
+          var intersectedEl = intersections[0].object.el;
+  
+          // Verificar si el elemento tiene la clase 'button' o el ID 'fwdButton'
+          if (intersectedEl && (intersectedEl.classList.contains('button') || intersectedEl.id === 'fwdButton')) {
+            // Disparar un evento de clic en el elemento intersectado
+            intersectedEl.emit('click', {intersectedEl: intersectedEl});
+          }
+        }
+      }
+    });
+  </script>
+  
   
 </body>
 </html>
