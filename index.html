@@ -74,6 +74,10 @@
     AFRAME.registerComponent('log-on-intersect', {
       init: function () {
         const button = document.querySelector('#fwd_button');
+        const button2 = document.querySelector('#back_button');
+        const button3 = document.querySelector('#up_button');
+        const button4 = document.querySelector('#down_button');
+        const buttons = document.querySelectorAll('.button');
         const cursor = document.querySelector('#cursor-animado');
 
         const resetCursor = () => {
@@ -87,8 +91,77 @@
             arc: 360, // Mostrar el toro completo
           });
         };
-  
+        
         button.addEventListener('raycaster-intersected', () => {
+          // Reiniciar y reproducir animaciones al entrar
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: 0,
+            to: 360,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: 1,
+            to: 32,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+        });
+
+        button2.addEventListener('raycaster-intersected', () => {
+          // Reiniciar y reproducir animaciones al entrar
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: 0,
+            to: 360,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: 1,
+            to: 32,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+        });
+
+        button3.addEventListener('raycaster-intersected', () => {
+          // Reiniciar y reproducir animaciones al entrar
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: 0,
+            to: 360,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: 1,
+            to: 32,
+            loop: false,
+            dur: 1400,
+            easing: 'linear',
+            enabled: true,
+          });
+        });
+
+        button4.addEventListener('raycaster-intersected', () => {
           // Reiniciar y reproducir animaciones al entrar
           cursor.setAttribute('animation__arc', {
             property: 'geometry.arc',
@@ -141,6 +214,99 @@
             resetCursor();
           });
         });
+
+        button2.addEventListener('raycaster-intersected-cleared', () => {
+          // Obtener progreso actual
+          const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
+          const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
+  
+          // Configurar animación inversa
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: arcProgress,
+            to: 0,
+            loop: false,
+            dur: 1400 * (arcProgress / 360),
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: segmentProgress,
+            to: 1,
+            loop: false,
+            dur: 1400 * ((segmentProgress - 1) / 31),
+            easing: 'linear',
+            enabled: true,
+          });
+
+          cursor.addEventListener('animationcomplete', (event) => {
+            resetCursor();
+          });
+        });
+
+        button3.addEventListener('raycaster-intersected-cleared', () => {
+          // Obtener progreso actual
+          const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
+          const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
+  
+          // Configurar animación inversa
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: arcProgress,
+            to: 0,
+            loop: false,
+            dur: 1400 * (arcProgress / 360),
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: segmentProgress,
+            to: 1,
+            loop: false,
+            dur: 1400 * ((segmentProgress - 1) / 31),
+            easing: 'linear',
+            enabled: true,
+          });
+
+          cursor.addEventListener('animationcomplete', (event) => {
+            resetCursor();
+          });
+        });
+
+        button4.addEventListener('raycaster-intersected-cleared', () => {
+          // Obtener progreso actual
+          const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
+          const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
+  
+          // Configurar animación inversa
+          cursor.setAttribute('animation__arc', {
+            property: 'geometry.arc',
+            from: arcProgress,
+            to: 0,
+            loop: false,
+            dur: 1400 * (arcProgress / 360),
+            easing: 'linear',
+            enabled: true,
+          });
+  
+          cursor.setAttribute('animation__segments', {
+            property: 'geometry.segmentsTubular',
+            from: segmentProgress,
+            to: 1,
+            loop: false,
+            dur: 1400 * ((segmentProgress - 1) / 31),
+            easing: 'linear',
+            enabled: true,
+          });
+
+          cursor.addEventListener('animationcomplete', (event) => {
+            resetCursor();
+          });
+        });
       },
     });
   
@@ -151,6 +317,7 @@
     AFRAME.registerComponent('cursor-fuse-click', {
       init: function () {
         var el = this.el;
+
         
         // Funciones para manejar los eventos
         this.onMouseDown = this.onMouseDown.bind(this);
@@ -167,11 +334,10 @@
       },
       onMouseDown: function (evt) {
         // Manejar el evento mousedown
-        console.log('Evento mousedown detectado');
+        //console.log('Evento mousedown detectado');
       },
       onMouseUp: function (evt) {
         // Manejar el evento mouseup
-        console.log('Evento mouseup detectado');
         // Obtener las intersecciones actuales del raycaster
       var raycaster = this.el.components.raycaster;
       var intersections = raycaster.intersections;
@@ -196,7 +362,7 @@
           var intersectedEl = intersections[0].object.el;
   
           // Verificar si el elemento tiene la clase 'button' o el ID 'fwdButton'
-          if (intersectedEl && (intersectedEl.classList.contains('button') || intersectedEl.id === 'fwdButton')) {
+          if (intersectedEl && (intersectedEl.classList.contains('button') || intersectedEl.id === 'fwdButton' || intersectedEl.id === 'backButton' || intersectedEl.id === 'downButton' || intersectedEl.id === 'upButton')) {
             // Disparar un evento de clic en el elemento intersectado
             intersectedEl.emit('click', {intersectedEl: intersectedEl});
           }
