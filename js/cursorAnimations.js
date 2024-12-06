@@ -14,6 +14,7 @@ AFRAME.registerComponent('log-on-intersect', {
           segmentsRadial: 3,
           arc: 360, // Mostrar el toro completo
         });
+        cursor.setAttribute('cursor', 'fuse', false);
       };
 
       function animateCursor() {
@@ -42,6 +43,7 @@ AFRAME.registerComponent('log-on-intersect', {
 
       function reverseAnimateCursor() {
         // Obtener progreso actual
+        cursor.setAttribute('cursor', 'fuse', true);
         const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
         const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
       
@@ -67,7 +69,6 @@ AFRAME.registerComponent('log-on-intersect', {
         });
       
         cursor.addEventListener('animationcomplete', (event) => {
-        cursor.setAttribute('cursor', 'fuse', true);
           resetCursor();
         });
       }
