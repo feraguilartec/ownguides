@@ -28,7 +28,7 @@ AFRAME.registerComponent('log-on-intersect', {
           easing: 'linear',
           enabled: true,
         });
-      
+          
         cursor.setAttribute('animation__segments', {
           property: 'geometry.segmentsTubular',
           from: 1,
@@ -67,6 +67,7 @@ AFRAME.registerComponent('log-on-intersect', {
         });
       
         cursor.addEventListener('animationcomplete', (event) => {
+        cursor.setAttribute('cursor', 'fuse', true);
           resetCursor();
         });
       }
