@@ -12,7 +12,7 @@ const resetCursor = () => {
     radiusTubular: 0.002,
     segmentsTubular: 32,
     segmentsRadial: 3,
-    arc: 360
+    arc: 360 // Mostrar el torus completo
   });
 };
 
@@ -26,14 +26,18 @@ const stopCursorAnimations = () => {
   console.log('stopCursorAnimations: Removiendo animaciones en curso.');
   cursor.removeAttribute('animation__arc');
   cursor.removeAttribute('animation__segments');
+  // Si usas fuse, podrías desactivarlo temporalmente para confirmar que no se auto-reinicien las animaciones
+  // cursor.setAttribute('cursor', 'fuse', false);
 };
 
 AFRAME.registerComponent('cursor-fuse-click', {
   init: function () {
     var el = this.el;
+    // Funciones para manejar eventos
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 
+    // Agregar listeners para mousedown y mouseup
     el.addEventListener('mousedown', this.onMouseDown);
     el.addEventListener('mouseup', this.onMouseUp);
   },
@@ -45,13 +49,6 @@ AFRAME.registerComponent('cursor-fuse-click', {
   onMouseDown: function (evt) {
     console.log('onMouseDown: Se detectó un clic (mouse down). Reseteando cursor.');
     resetCursor();
-
-    // Desactivar fuse al presionar el botón del mouse (inicio del clic)
-    const cursor = document.querySelector('#cursor-animado');
-    if (cursor) {
-      cursor.setAttribute('cursor', 'fuse', false);
-      console.log('onMouseDown: fuse desactivado inmediatamente');
-    }
   },
   onMouseUp: function (evt) {
     console.log('onMouseUp: Soltando el click, deteniendo animaciones y reseteando.');
@@ -85,6 +82,7 @@ AFRAME.registerComponent('cursor-fuse-click', {
     intersections = raycaster ? raycaster.intersections : [];
     if (intersections.length > 0) {
       var intersectedEl = intersections[0].object.el;
+      // Verificar si el elemento tiene la clase 'button' o uno de los IDs específicos
       if (intersectedEl && (intersectedEl.classList.contains('button') 
          || intersectedEl.id === 'fwdButton' 
          || intersectedEl.id === 'backButton' 
