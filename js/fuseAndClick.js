@@ -60,6 +60,7 @@ AFRAME.registerComponent('cursor-fuse-click', {
     // Detener cualquier animación activa en el cursor
     stopCursorAnimations();
     resetCursor();
+    cursor.setAttribute('cursor', 'fuse', false);
 
     // Obtener las intersecciones actuales del raycaster
     var raycaster = this.el.components.raycaster;
