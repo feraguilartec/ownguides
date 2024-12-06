@@ -14,7 +14,6 @@ const resetCursor = () => {
     segmentsRadial: 3,
     arc: 360 // Mostrar el torus completo
   });
-  cursor.setAttribute('cursor', 'fuse', false);
 };
 
 // Función para detener las animaciones del cursor
@@ -27,18 +26,14 @@ const stopCursorAnimations = () => {
   console.log('stopCursorAnimations: Removiendo animaciones en curso.');
   cursor.removeAttribute('animation__arc');
   cursor.removeAttribute('animation__segments');
-  // Si usas fuse, podrías desactivarlo temporalmente para confirmar que no se auto-reinicien las animaciones
-  // cursor.setAttribute('cursor', 'fuse', false);
 };
 
 AFRAME.registerComponent('cursor-fuse-click', {
   init: function () {
     var el = this.el;
-    // Funciones para manejar eventos
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 
-    // Agregar listeners para mousedown y mouseup
     el.addEventListener('mousedown', this.onMouseDown);
     el.addEventListener('mouseup', this.onMouseUp);
   },
@@ -61,6 +56,8 @@ AFRAME.registerComponent('cursor-fuse-click', {
     // Detener cualquier animación activa en el cursor
     stopCursorAnimations();
     resetCursor();
+
+    // **Desactivar fuse al hacer click manual**
     cursor.setAttribute('cursor', 'fuse', false);
 
     // Obtener las intersecciones actuales del raycaster
