@@ -57,7 +57,7 @@ AFRAME.registerComponent('cursor-fuse-click', {
     stopCursorAnimations();
     resetCursor();
 
-    // **Desactivar fuse al hacer click manual**
+    // Desactivar fuse al hacer click manual
     cursor.setAttribute('cursor', 'fuse', false);
 
     // Obtener las intersecciones actuales del raycaster
