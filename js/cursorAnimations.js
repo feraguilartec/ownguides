@@ -21,10 +21,7 @@ AFRAME.registerComponent('log-on-intersect', {
         return;
       }
 
-      // **Reactivar fuse al iniciar la animación de carga**
-      cursor.setAttribute('cursor', 'fuse', true);
-
-      // Reiniciar y reproducir animaciones al entrar
+      // Iniciar las animaciones de carga
       cursor.setAttribute('animation__arc', {
         property: 'geometry.arc',
         from: 0,
@@ -78,15 +75,22 @@ AFRAME.registerComponent('log-on-intersect', {
         enabled: true,
       });
 
-      // Eliminar la reactivación del fuse aquí
-      // Antes se reactivaba el fuse al completar la animación inversa, ya no lo haremos.
       cursor.addEventListener('animationcomplete', (event) => {
         resetCursor();
       });
     }
 
+    // Aquí reactivamos el fuse sólo cuando se detecta una nueva intersección (nuevo objetivo)
     buttons.forEach(button => {
-      button.addEventListener('raycaster-intersected', animateCursor);
+      button.addEventListener('raycaster-intersected', () => {
+        const cursor = document.querySelector('#cursor-animado');
+        if (cursor) {
+          // Reactivar el fuse al detectar una nueva intersección con un botón
+          cursor.setAttribute('cursor', 'fuse', true);
+        }
+        animateCursor();
+      });
+
       button.addEventListener('raycaster-intersected-cleared', reverseAnimateCursor);
     });
   },
