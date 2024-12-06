@@ -3,14 +3,13 @@ AFRAME.registerComponent('log-on-intersect', {
     const buttons = document.querySelectorAll('#fwd_button, #back_button, #up_button, #down_button');
     const cursor = document.querySelector('#cursor-animado');
     const resetCursor = () => {
-      // Configurar el estado inicial (toro completo)
       cursor.setAttribute('geometry', {
         primitive: 'torus',
         radius: 0.01,
         radiusTubular: 0.002,
         segmentsTubular: 32,
         segmentsRadial: 3,
-        arc: 360, // Mostrar el toro completo
+        arc: 360
       });
     };
 
@@ -21,7 +20,7 @@ AFRAME.registerComponent('log-on-intersect', {
         return;
       }
 
-      // Iniciar las animaciones de carga
+      // Iniciar animaciones de carga (no reactivamos fuse aquí)
       cursor.setAttribute('animation__arc', {
         property: 'geometry.arc',
         from: 0,
@@ -50,11 +49,9 @@ AFRAME.registerComponent('log-on-intersect', {
         return;
       }
 
-      // Obtener progreso actual
       const arcProgress = parseFloat(cursor.getAttribute('geometry').arc || 0);
       const segmentProgress = parseFloat(cursor.getAttribute('geometry').segmentsTubular || 1);
 
-      // Configurar animación inversa
       cursor.setAttribute('animation__arc', {
         property: 'geometry.arc',
         from: arcProgress,
@@ -77,15 +74,16 @@ AFRAME.registerComponent('log-on-intersect', {
 
       cursor.addEventListener('animationcomplete', (event) => {
         resetCursor();
-      });
+      }, { once: true });
     }
 
-    // Aquí reactivamos el fuse sólo cuando se detecta una nueva intersección (nuevo objetivo)
+    // Reactivamos el fuse sólo cuando se detecta una nueva intersección (nuevo objetivo)
     buttons.forEach(button => {
       button.addEventListener('raycaster-intersected', () => {
         const cursor = document.querySelector('#cursor-animado');
         if (cursor) {
           // Reactivar el fuse al detectar una nueva intersección con un botón
+          console.log('raycaster-intersected: Reactivando fuse');
           cursor.setAttribute('cursor', 'fuse', true);
         }
         animateCursor();
