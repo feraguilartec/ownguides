@@ -18,6 +18,7 @@ AFRAME.registerComponent('log-on-intersect', {
 
       function animateCursor() {
         // Reiniciar y reproducir animaciones al entrar
+        cursor.setAttribute('cursor', 'fuse', true);
         cursor.setAttribute('animation__arc', {
           property: 'geometry.arc',
           from: 0,
