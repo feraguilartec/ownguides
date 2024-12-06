@@ -14,6 +14,7 @@ const resetCursor = () => {
     segmentsRadial: 3,
     arc: 360 // Mostrar el torus completo
   });
+  cursor.setAttribute('cursor', 'fuse', false);
 };
 
 // Función para detener las animaciones del cursor
