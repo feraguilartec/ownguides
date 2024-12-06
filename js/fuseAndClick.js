@@ -12,7 +12,7 @@ const resetCursor = () => {
     radiusTubular: 0.002,
     segmentsTubular: 32,
     segmentsRadial: 3,
-    arc: 360 // Mostrar el torus completo
+    arc: 360
   });
 };
 
@@ -45,6 +45,13 @@ AFRAME.registerComponent('cursor-fuse-click', {
   onMouseDown: function (evt) {
     console.log('onMouseDown: Se detectó un clic (mouse down). Reseteando cursor.');
     resetCursor();
+
+    // Desactivar fuse al presionar el botón del mouse (inicio del clic)
+    const cursor = document.querySelector('#cursor-animado');
+    if (cursor) {
+      cursor.setAttribute('cursor', 'fuse', false);
+      console.log('onMouseDown: fuse desactivado inmediatamente');
+    }
   },
   onMouseUp: function (evt) {
     console.log('onMouseUp: Soltando el click, deteniendo animaciones y reseteando.');
@@ -56,9 +63,6 @@ AFRAME.registerComponent('cursor-fuse-click', {
     // Detener cualquier animación activa en el cursor
     stopCursorAnimations();
     resetCursor();
-
-    // Desactivar fuse al hacer click manual
-    cursor.setAttribute('cursor', 'fuse', false);
 
     // Obtener las intersecciones actuales del raycaster
     var raycaster = this.el.components.raycaster;
@@ -81,7 +85,6 @@ AFRAME.registerComponent('cursor-fuse-click', {
     intersections = raycaster ? raycaster.intersections : [];
     if (intersections.length > 0) {
       var intersectedEl = intersections[0].object.el;
-      // Verificar si el elemento tiene la clase 'button' o uno de los IDs específicos
       if (intersectedEl && (intersectedEl.classList.contains('button') 
          || intersectedEl.id === 'fwdButton' 
          || intersectedEl.id === 'backButton' 
