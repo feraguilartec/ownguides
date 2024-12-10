@@ -8,8 +8,8 @@ AFRAME.registerComponent('log-on-intersect', {
       // Configurar el estado inicial (toro completo)
       cursor.setAttribute('geometry', {
           primitive: 'torus',
-          radius: 0.01,
-          radiusTubular: 0.002,
+          radius: 0.001,
+          radiusTubular: 0.0002,
           segmentsTubular: 32,
           segmentsRadial: 3,
           arc: 360, // Mostrar el toro completo
@@ -37,6 +37,8 @@ AFRAME.registerComponent('log-on-intersect', {
           easing: 'linear',
           enabled: true,
         });
+
+        cursor.setAttribute('cursor', 'fuse', true);
       }
 
       function reverseAnimateCursor() {
@@ -68,6 +70,8 @@ AFRAME.registerComponent('log-on-intersect', {
         cursor.addEventListener('animationcomplete', (event) => {
           resetCursor();
         });
+
+        cursor.setAttribute('cursor', 'fuse', true);
       }
 
       buttons.forEach(button => {
