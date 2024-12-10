@@ -43,25 +43,25 @@
     </a-assets>
 
     <a-entity position="0 1.4 -3" guide></a-entity>
-    <!-- Controladores para las manos -->
+    <!-- Controladores para manos -->
     <!-- <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;" obb-collider></a-entity> -->
     <!-- <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;" obb-collider></a-entity> -->
     <a-entity id="leftHand" hand-tracking-grab-controls="hand: left;"></a-entity>
     <a-entity id="rightHand" hand-tracking-grab-controls="hand: right;"></a-entity>
 
     <!-- Cámara con look-controls y wasd-controls -->
-    <a-camera id="camara-cursor" wasd-controls look-controls>
+    <a-camera id="camara-cursor" wasd-controls look-controls="pointerLockEnabled: true">
       <a-entity id="cursor-animado" 
           cursor="fuse: true; rayOrigin: entity; fuseTimeout: 1500" 
           cursor-fuse-click
           raycaster="objects: .button" 
-          position="0 0 -1" 
-          material="color: #6de5f7; shader: flat" 
-          geometry="primitive: torus; radius: 0.01; radiusTubular: 0.002; segmentsTubular: 32; segmentsRadial: 3"
+          position="0 0 -.1" 
+          material="color: #6de5f7; shader: flat; depthTest: true" 
+          geometry="primitive: torus; radius: 0.001; radiusTubular: 0.0002; segmentsTubular: 32; segmentsRadial: 3"
           animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1400; easing: linear; enabled: false;"
           animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1400; easing: linear; enabled: false;">
       </a-entity>
-    </a-camera>
+    </a-camera>    
   </a-scene>
 
   <!-- Scripts Guides -->
