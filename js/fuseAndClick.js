@@ -5,16 +5,18 @@ const resetCursor = () => {
     console.warn('resetCursor: No se encontró #cursor-animado');
     return;
   }
-  console.log('resetCursor: Configurando torus completo.');
+  //console.log('resetCursor: Configurando torus completo.');
   cursor.setAttribute('geometry', {
     primitive: 'torus',
-    radius: 0.01,
-    radiusTubular: 0.002,
+    radius: 0.001,
+    radiusTubular: 0.0002,
     segmentsTubular: 32,
     segmentsRadial: 3,
     arc: 360 // Mostrar el torus completo
   });
+  //cursor.setAttribute('cursor', 'fuse', true);
 };
+
 
 // Función para detener las animaciones del cursor
 const stopCursorAnimations = () => {
@@ -23,11 +25,11 @@ const stopCursorAnimations = () => {
     console.warn('stopCursorAnimations: No se encontró #cursor-animado');
     return;
   }
-  console.log('stopCursorAnimations: Removiendo animaciones en curso.');
+  //console.log('stopCursorAnimations: Removiendo animaciones en curso.');
   cursor.removeAttribute('animation__arc');
   cursor.removeAttribute('animation__segments');
   // Si usas fuse, podrías desactivarlo temporalmente para confirmar que no se auto-reinicien las animaciones
-  // cursor.setAttribute('cursor', 'fuse', false);
+  cursor.setAttribute('cursor', 'fuse', false);
 };
 
 AFRAME.registerComponent('cursor-fuse-click', {
@@ -47,11 +49,11 @@ AFRAME.registerComponent('cursor-fuse-click', {
     el.removeEventListener('mouseup', this.onMouseUp);
   },
   onMouseDown: function (evt) {
-    console.log('onMouseDown: Se detectó un clic (mouse down). Reseteando cursor.');
+    //console.log('onMouseDown: Se detectó un clic (mouse down). Reseteando cursor.');
     resetCursor();
   },
   onMouseUp: function (evt) {
-    console.log('onMouseUp: Soltando el click, deteniendo animaciones y reseteando.');
+    //console.log('onMouseUp: Soltando el click, deteniendo animaciones y reseteando.');
     const cursor = document.querySelector('#cursor-animado');
     if (!cursor) {
       console.warn('onMouseUp: No se encontró #cursor-animado');
@@ -64,14 +66,14 @@ AFRAME.registerComponent('cursor-fuse-click', {
     // Obtener las intersecciones actuales del raycaster
     var raycaster = this.el.components.raycaster;
     var intersections = raycaster ? raycaster.intersections : [];
-    console.log('onMouseUp: Intersecciones detectadas: ', intersections);
+    //console.log('onMouseUp: Intersecciones detectadas: ', intersections);
 
     if (intersections && intersections.length > 0) {
       // Iterar sobre las intersecciones para encontrar un elemento con la clase 'button'
       for (var i = 0; i < intersections.length; i++) {
         var intersectedEl = intersections[i].object.el;
         if (intersectedEl && intersectedEl.classList && intersectedEl.classList.contains('button')) {
-          console.log('onMouseUp: Se encontró un elemento con la clase button, emitiendo evento click.');
+          //console.log('onMouseUp: Se encontró un elemento con la clase button, emitiendo evento click.');
           intersectedEl.emit('click', {intersectedEl: intersectedEl});
           break;
         }
@@ -88,7 +90,7 @@ AFRAME.registerComponent('cursor-fuse-click', {
          || intersectedEl.id === 'backButton' 
          || intersectedEl.id === 'downButton' 
          || intersectedEl.id === 'upButton')) {
-           console.log('onMouseUp: Se ha detectado un elemento con ID o clase relevante, emitiendo evento click.');
+           //console.log('onMouseUp: Se ha detectado un elemento con ID o clase relevante, emitiendo evento click.');
            intersectedEl.emit('click', {intersectedEl: intersectedEl});
       }
     }
