@@ -8,8 +8,8 @@ const resetCursor = () => {
   //console.log('resetCursor: Configurando torus completo.');
   cursor.setAttribute('geometry', {
     primitive: 'torus',
-    radius: 0.001,
-    radiusTubular: 0.0002,
+    radius: 0.01,
+    radiusTubular: 0.002,
     segmentsTubular: 32,
     segmentsRadial: 3,
     arc: 360 // Mostrar el torus completo
