@@ -67,19 +67,6 @@ AFRAME.registerComponent('cursor-fuse-click', {
     var raycaster = this.el.components.raycaster;
     var intersections = raycaster ? raycaster.intersections : [];
     //console.log('onMouseUp: Intersecciones detectadas: ', intersections);
-
-    if (intersections && intersections.length > 0) {
-      // Iterar sobre las intersecciones para encontrar un elemento con la clase 'button'
-      for (var i = 0; i < intersections.length; i++) {
-        var intersectedEl = intersections[i].object.el;
-        if (intersectedEl && intersectedEl.classList && intersectedEl.classList.contains('button')) {
-          //console.log('onMouseUp: Se encontró un elemento con la clase button, emitiendo evento click.');
-          intersectedEl.emit('click', {intersectedEl: intersectedEl});
-          break;
-        }
-      }
-    }
-
     // Volver a obtener intersecciones por si no se encontró antes la clase 'button'
     intersections = raycaster ? raycaster.intersections : [];
     if (intersections.length > 0) {
@@ -90,8 +77,8 @@ AFRAME.registerComponent('cursor-fuse-click', {
          || intersectedEl.id === 'backButton' 
          || intersectedEl.id === 'downButton' 
          || intersectedEl.id === 'upButton')) {
-           //console.log('onMouseUp: Se ha detectado un elemento con ID o clase relevante, emitiendo evento click.');
-           intersectedEl.emit('click', {intersectedEl: intersectedEl});
+           console.log('onMouseUp: Se ha detectado un elemento con ID o clase relevante, emitiendo evento click.');
+           //intersectedEl.emit('click', {intersectedEl: intersectedEl});
       }
     }
   }
