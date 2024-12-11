@@ -61,7 +61,14 @@
           animation__arc="property: geometry.arc; from: 0; to: 360; loop: false; dur: 1400; easing: linear; enabled: false;"
           animation__segments="property: geometry.segmentsTubular; from: 1; to: 32; loop: false; dur: 1400; easing: linear; enabled: false;">
       </a-entity>
-    </a-camera>    
+    </a-camera>
+    <!-- Caja para interactuar con look-controls y wasd-controls -->
+    <a-box grabbable 
+       color="red" 
+       scale="0.5 0.5 0.5" 
+       position="0 0 -1" 
+       dynamic-body>
+    </a-box>
   </a-scene>
 
   <!-- Scripts Guides -->
